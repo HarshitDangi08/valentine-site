@@ -8,17 +8,17 @@
 
 <style>
     body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(to bottom right, #f169a4, #ffffff);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-        text-align: center;
-    }
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f169a4 0%, #ffd6e8 50%, #ffffff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+}
 
     .container {
         position: relative;
@@ -188,12 +188,13 @@ function createHearts() {
 
 function toggleMode() {
     mode = mode === "cute" ? "funny" : "cute";
+
     document.body.style.background = mode === "cute"
-        ? "linear-gradient(135deg, #ffe6f0, #fff0f5)"
-        : "linear-gradient(135deg, #ffdde1, #ee9ca7)";
+        ? "linear-gradient(135deg, #f169a4 0%, #ffd6e8 50%, #ffffff 100%)"
+        : "linear-gradient(135deg, #f169a4 0%, #ff9ec9 50%, #ffffff 100%)";
 }
+
 </script>
 
 </body>
 </html>
-
