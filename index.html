@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine?</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .container {
+        position: relative;
+        max-width: 600px;
+        width: 90%;
+    }
+
+    h1 {
+        font-family: 'Pacifico', cursive;
+        font-size: 2.5rem;
+        color: #ff4d6d;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    img {
+        width: 250px;
+        height: 250px;
+        object-fit: contain;
+        margin-bottom: 30px;
+        transition: all 0.4s ease;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+        background: linear-gradient(45deg, #ff4d6d, #ff99ac);
+        color: white;
+        box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.1);
+    }
+
+    #noBtn {
+        background: #d3d3d3;
+        color: #333;
+        position: absolute;
+    }
+
+    .mode-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+        background: white;
+        border-radius: 20px;
+        padding: 5px 10px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+    }
+
+    .hearts {
+        position: absolute;
+        font-size: 20px;
+        animation: floatUp 2s linear forwards;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-200px); opacity: 0; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="mode-toggle" onclick="toggleMode()">Switch Mode</div>
+
+<div class="container">
+    <h1 id="title">Will you be my Valentine? 🥺💖</h1>
+
+    <img id="gif"
+         src="assets/smirk-cat.gif"
+         alt="Smirk Cat Smile">
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+let mode = "cute";
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const gif = document.getElementById("gif");
+const title = document.getElementById("title");
+
+const funnyTexts = [
+    "Nice try 😏",
+    "Are you sure??",
+    "Illegal move 🚨",
+    "Think again 😌",
+    "You can't escape 😈"
+];
+
+function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
+    if (mode === "funny") {
+        noBtn.innerText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+        noBtn.style.transform = "rotate(" + (Math.random()*360) + "deg)";
+    }
+}
+
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+yesBtn.addEventListener("click", () => {
+
+    if (mode === "cute") {
+        title.innerText = " I love you so much my motuuuuu!! 💕🎉";
+        gif.src = "assets/love-kiss.gif";
+    } else {
+        title.innerText = "YOU SAID YES!!! AS YOU SHOULD BABYYY :) 🚀💖";
+        gif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2t5ZXQ0eXR6Z2prbnNtcjkwNWswdHVsaTloems1bWM5ZHJ5MnhlbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif";
+    }
+
+    confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 }
+    });
+
+    createHearts();
+});
+
+function createHearts() {
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("hearts");
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight - 50 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 2000);
+    }
+}
+
+function toggleMode() {
+    mode = mode === "cute" ? "funny" : "cute";
+    document.body.style.background = mode === "cute"
+        ? "linear-gradient(135deg, #ffe6f0, #fff0f5)"
+        : "linear-gradient(135deg, #ffdde1, #ee9ca7)";
+}
+</script>
+
+</body>
+</html>
